@@ -1,0 +1,19 @@
+<h1>You're looking at game <%= @game.id %></h1>
+
+<p>
+  You have <%= pluralize @game.guesses_remaining, 'guess' %> remaining.
+</p>
+
+<ul>
+  <% @game.guesses.each do |guess| %>
+    <li><%= guess.number %> <%= guess.status %></li>
+  <% end %>
+</ul>
+
+<% if @game.in_progress? %>
+  <%= form_for [@game, @game.guesses.new] do |form| %>
+    Enter your guess:
+    <%= form.text_field :number, autofocus: true %>
+    <%= form.submit %>
+  <% end %>
+<% end %>
